@@ -1,5 +1,3 @@
 <?php
 
-$app->get('/', function() {
-    return 'Homepage';
-});
+$app->get('/', 'App\\Controller\\Auth::login');
