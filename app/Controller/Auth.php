@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use Silex\Application;
+
 class Auth
 {
-    public function login()
+    public function login(Application $app)
     {
-        return 'Login page';
+        return $app['twig']->render('login.twig.html', ['text' => 'Login page']);
     }
 }
