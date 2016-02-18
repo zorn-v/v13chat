@@ -1,0 +1,18 @@
+body {
+    background-color: #000;
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    color: #FFF;
+}
+input[type="text"], input[type="password"] {
+    font-size: 9pt;
+    font-family: Tahoma;
+    color: #FFF;
+    background: none;
+    border: gray 1px solid;
+}
+.error {
+    color: red;
+}
