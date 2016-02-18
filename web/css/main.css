@@ -6,8 +6,8 @@ body {
     font-size: 12px;
     color: #FFF;
 }
-input[type="text"], input[type="password"] {
-    font-size: 9pt;
+input {
+    font-size: 10pt;
     font-family: Tahoma;
     color: #FFF;
     background: none;
