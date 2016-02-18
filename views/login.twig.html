@@ -4,6 +4,16 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}" type="text/css" />
 {% endblock %}
 
+{% block javascripts %}
+<script type="text/javascript">
+    jQuery(function($){
+        $('#register_button').click(function(){
+            location = '{{ path('register') }}';
+        });
+    });
+</script>
+{% endblock %}
+
 {% block body %}
 <div class="login-container">
     <div class="chat-title">Чат (бета)</div>
@@ -14,7 +24,7 @@
         <div><b>Пароль</b></div>
         <div><input type="password" name="_password" value="" /></div>
         <div><input type="submit" value="Войти"/></div>
-        <div><input type="button" value="Регистрация"/></div>
+        <div><input id="register_button" type="button" value="Регистрация"/></div>
     </form>
 </div>
 {% endblock %}

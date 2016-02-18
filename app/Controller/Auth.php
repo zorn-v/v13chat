@@ -14,4 +14,9 @@ class Auth
             'last_username' => $app['session']->get('_security.last_username'),
         ));
     }
+
+    public function register(Application $app)
+    {
+        return $app['twig']->render('register.twig.html');
+    }
 }
