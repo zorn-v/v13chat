@@ -1,6 +1,6 @@
 <?php
 
 $app->get('/login', 'App\\Controller\\Auth::login');
-$app->get('/', function () {
-    return 'You are logged as '.$app['user']->name;
+$app->get('/', function () use($app) {
+    return 'You are logged as '.$app['user']->getProfile()->name;
 });
