@@ -4,6 +4,12 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
+        return $app['request']->getBasePath().'/'.ltrim($asset, '/');
+    }));
+    return $twig;
+}));
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.role_hierarchy' => [
