@@ -1,6 +1,14 @@
 <?php
-define('DB_DRIVER', 'mysql');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'v13chat');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+
+$db = new Illuminate\Database\Capsule\Manager();
+$db->addConnection([
+    'driver'    => 'mysql',
+    'host'      => 'localhost',
+    'database'  => 'v13chat',
+    'username'  => 'root',
+    'password'  => '',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+]);
+$db->bootEloquent();
