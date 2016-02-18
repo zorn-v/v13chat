@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use Silex\Application;
-use App\Model\User;
+use Symfony\Component\HttpFoundation\Request;
 
 class Auth
 {
-    public function login(Application $app)
+    public function login(Application $app, Request $request)
     {
-        $user = User::find(1);
-        return $app['twig']->render('login.twig.html', ['user' => $user]);
+        return $app['twig']->render('login.twig.html', array(
+            'error'         => $app['security.last_error']($request),
+            'last_username' => $app['session']->get('_security.last_username'),
+        ));
     }
 }
