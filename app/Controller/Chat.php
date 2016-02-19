@@ -9,6 +9,6 @@ class Chat
 {
     public function layout(Application $app, Request $request)
     {
-        return $app['twig']->render('chat.twig.html');
+        return $app['twig']->render('chat.html.twig');
     }
 }

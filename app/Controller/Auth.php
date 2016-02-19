@@ -9,7 +9,7 @@ class Auth
 {
     public function login(Application $app, Request $request)
     {
-        return $app['twig']->render('login.twig.html', array(
+        return $app['twig']->render('login.html.twig', array(
             'error'         => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
         ));
@@ -17,6 +17,6 @@ class Auth
 
     public function register(Application $app)
     {
-        return $app['twig']->render('register.twig.html');
+        return $app['twig']->render('register.html.twig');
     }
 }
