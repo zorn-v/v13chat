@@ -2,7 +2,10 @@
 
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
+//Сервис генерации урлов по имени роута. Так же становятся доступны twig функции path и url
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
+//Шаблонизатор twig
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
@@ -12,8 +15,13 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     }));
     return $twig;
 }));
+
+//Сессии
 $app->register(new Silex\Provider\SessionServiceProvider());
+//Храним в базе
 $app['session.storage.handler'] = new PdoSessionHandler($db->getConnection()->getPdo());
+
+//Аутентификация с авторизацией
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.role_hierarchy' => [
         'ROLE_SUPER_ADMIN' => ['ROLE_ADMIN'],
