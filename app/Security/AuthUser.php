@@ -15,15 +15,9 @@ class AuthUser implements UserInterface
 
     public function __construct(User $profile)
     {
-        //Пока так, потом надо переделать
-        $roles = [
-            2 => 'ROLE_USER',
-            5 => 'ROLE_ADMIN',
-            10 => 'ROLE_SUPER_ADMIN'
-        ];
         $this->username = $profile->name;
         $this->password = $profile->pass;
-        $this->roles = [$roles[$profile->level]];
+        $this->roles = [$profile->role->title];
         $this->profile = $profile;
     }
 
