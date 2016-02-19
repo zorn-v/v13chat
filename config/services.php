@@ -21,12 +21,16 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 //Храним в базе
 $app['session.storage.handler'] = new PdoSessionHandler($db->getConnection()->getPdo());
 
+//Выборка наследования ролей из базы
+//TODO закешировать
+$role_hierarchy = [];
+$roles = App\Model\Role::whereNotNull('inherit_roles')->get();
+foreach ($roles as $role) {
+    $role_hierarchy[$role->title] = json_decode($role->inherit_roles);
+}
 //Аутентификация с авторизацией
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
-    'security.role_hierarchy' => [
-        'ROLE_SUPER_ADMIN' => ['ROLE_ADMIN'],
-        'ROLE_ADMIN' => ['ROLE_USER']
-    ],
+    'security.role_hierarchy' => $role_hierarchy,
     'security.encoder.digest' => $app->share(function () {
         return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder();
     }),
