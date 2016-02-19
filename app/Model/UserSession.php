@@ -4,11 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class UserSession extends Model
 {
     public $timestamps = false;
-    protected $primaryKey = 'sess_id';
-    protected $hidden = ['sess_data'];
     
     public function user()
     {

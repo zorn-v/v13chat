@@ -45,3 +45,6 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
         ]
     ]
 ));
+$app['security.authentication.success_handler.default'] = $app->share(function ($app) {
+    return new App\Security\LoginSuccessHandler($app);
+});
