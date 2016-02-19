@@ -4,6 +4,7 @@ namespace App\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 use App\Model\User;
@@ -14,6 +15,11 @@ class UserProvider implements UserProviderInterface
     public function loadUserByUsername($username)
     {
         $user = User::where('name', $username)->first();
+        if ($user === null) {
+            throw new UsernameNotFoundException(
+                sprintf('User with username "%s" not found', $username)
+            );
+        }
         return new AuthUser($user);
     }
 
