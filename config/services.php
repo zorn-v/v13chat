@@ -21,7 +21,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     }),
     'security.firewalls' => [
         'default' => [
-            'pattern' => '^(?!/login|/register$).*',
+            'pattern' => '^(?!/login$|/register$).*',
             'form' => ['login_path' => '/login', 'check_path' => '/login_check'],
             'logout' => ['logout_path' => '/logout', 'invalidate_session' => true],
             'users' => $app->share(function () {
