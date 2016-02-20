@@ -7,6 +7,7 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 //Шаблонизатор twig
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
+    'twig.form.templates'=> ['form_layout.html.twig'],
 ));
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
@@ -47,3 +48,6 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 $app['security.authentication.success_handler.default'] = $app->share(function ($app) {
     return new App\Security\LoginSuccessHandler($app);
 });
+
+//Сервис генерации и обработки форм
+$app->register(new Silex\Provider\FormServiceProvider());

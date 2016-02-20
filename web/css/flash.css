@@ -1,0 +1,45 @@
+.flash-message {
+    position: fixed;
+    top: 280px;
+    left: 50%;
+    width: 500px;
+    border: 1px solid #fff;
+    background-color: #333;
+    border-radius: 10px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    color: #ccf;
+    font-size: 16px;
+    margin-left: -250px;
+    z-index: 1000;
+    display: none;
+}
+.flash-message.active {
+    display: block;
+}
+.flash-close {
+    margin-bottom: 10px;
+    text-align: center;
+}
+.flash-close > div {
+    border: 1px solid #fff;
+    background-color: #000;
+    display: inline-block;
+    padding: 5px 10px;
+    color: #fff;
+    cursor: default;
+}
+.overlay {
+    background-color: #000;
+    opacity: 0.8;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.flash-message.active ~ .overlay {
+    display: block;
+}

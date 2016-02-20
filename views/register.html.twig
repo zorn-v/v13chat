@@ -2,6 +2,35 @@
 
 {% block title%}Регистрация в чате{% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}" type="text/css" />
+{% endblock %}
 
+{% block body %}
+<div class="auth-container">
+    <div class="auth-title">Регистрация</div>
+    {{ form_start(form) }}
+    <ul class="error">
+    {% for error in errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+    <table>
+        <tr><td><span class="required-field">*</span> Желаемое имя</td><td>{{ form_widget(form.name) }}</td></tr>
+        <tr><td><span class="required-field">*</span> Пароль</td><td>{{ form_widget(form.pass) }}</td></tr>
+        <tr><td><span class="required-field">*</span> Повторите пароль</td><td>{{ form_widget(form.pass_verify) }}</td></tr>
+        <tr><td>Пол</td><td>{{ form_widget(form.gender) }}</td></tr>
+        <tr><td>Настоящее имя</td><td>{{ form_widget(form.realname) }}</td></tr>
+        <tr><td>Дата рождения</td><td>{{ form_widget(form.birthday) }}</td></tr>
+        <tr><td>E-mail</td><td>{{ form_widget(form.email) }}</td></tr>
+        <tr><td>ICQ</td><td>{{ form_widget(form.icq) }}</td></tr>
+        <tr><td>Сайт</td><td>{{ form_widget(form.site) }}</td></tr>
+    </table>
+    <span class="required-field">*</span> - обязательные поля
+    <div>
+        <input type="submit" value="Регистрация"/>
+        <a href="{{ path('login') }}" class="button">Вернуться</a>
+    </div>
+    {{ form_end(form) }}
+</div>
 {% endblock %}

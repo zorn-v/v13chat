@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}" type="text/css" />
 {% endblock %}
 
 {% block body %}
-<div class="login-container">
-    <div class="chat-title">Чат (бета)</div>
+<div class="auth-container">
+    <div class="auth-title">Чат (бета)</div>
     <form action="{{ path('login_check') }}" method="post">
         <div class="error">{{ error }}</div>
         <div><b>Логин</b></div>
