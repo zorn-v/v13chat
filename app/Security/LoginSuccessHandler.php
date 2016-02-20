@@ -20,9 +20,11 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
+        $userId = $this->app['user']->getProfile()->id;
+        Session::where('user_id', $userId)->delete();
         $request->getSession()->save();
         $session = Session::find($request->getSession()->getId());
-        $session->user_id = $this->app['user']->getProfile()->id;
+        $session->user_id = $userId;
         $session->ip = $request->getClientip();
         $session->save();
         return new RedirectResponse($this->app['url_generator']->generate('chat'));
