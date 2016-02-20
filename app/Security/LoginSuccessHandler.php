@@ -20,12 +20,8 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
+        $request->getSession()->save();
         $session = new UserSession();
-        $pdo = $session->getConnection()->getPdo();
-        $pdo->exec('COMMIT');
-        var_dump($pdo->query('SELECT * FROM sessions')->fetchAll());
-        var_dump($pdo);        
-        die();
         $session->sess_id = $request->getSession()->getId();
         $session->user_id = $this->app['user']->getProfile()->id;
         $session->ip = $request->getClientip();

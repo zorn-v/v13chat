@@ -19,7 +19,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
 //Сессии
 $app->register(new Silex\Provider\SessionServiceProvider());
 //Храним в базе
-$app['session.storage.handler'] = new PdoSessionHandler($db->getConnection()->getPdo());
+$app['session.storage.handler'] = new PdoSessionHandler($db->getConnection()->getPdo(), ['lock_mode'=>PdoSessionHandler::LOCK_NONE]);
 
 //Выборка наследования ролей из базы
 //TODO закешировать
