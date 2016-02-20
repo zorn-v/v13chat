@@ -6,8 +6,11 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 //Шаблонизатор twig
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/../views',
-    'twig.form.templates'=> ['form_layout.html.twig'],
+    'twig.path' => __DIR__ . '/../views',
+    'twig.form.templates' => ['form_layout.html.twig'],
+    'twig.options' => [
+        'cache' => __DIR__ . '/../cache/twig',
+    ],
 ));
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
