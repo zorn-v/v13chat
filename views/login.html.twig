@@ -26,5 +26,6 @@
         <div><input type="submit" value="Войти"/></div>
         <div><input id="register_button" type="button" value="Регистрация"/></div>
     </form>
+    Сейчас в чате {{ online_users|length>0 ? online_users|join(', ') : 'никого нет :-(' }}
 </div>
 {% endblock %}
