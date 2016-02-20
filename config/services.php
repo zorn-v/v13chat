@@ -4,7 +4,6 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 //Сервис генерации урлов по имени роута. Так же становятся доступны twig функции path и url
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-
 //Шаблонизатор twig
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',

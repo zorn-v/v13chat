@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Silex\Application;
-use App\Model\UserSession;
+use App\Model\Session;
 
 class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
@@ -21,11 +21,10 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         $request->getSession()->save();
-        $session = new UserSession();
-        $session->sess_id = $request->getSession()->getId();
+        $session = Session::find($request->getSession()->getId());
         $session->user_id = $this->app['user']->getProfile()->id;
         $session->ip = $request->getClientip();
         $session->save();
-        return new RedirectResponse('/');
+        return new RedirectResponse($this->app['url_generator']->generate('chat'));
     }
 }
