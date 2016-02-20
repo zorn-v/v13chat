@@ -11,9 +11,9 @@ class Auth
     public function login(Application $app, Request $request)
     {
         $onlineUsers = [];
-        $userSessions = Session::with('user')->get();
+        $userSessions = Session::whereNotNull('user_id')->with('user')->get();
         foreach ($userSessions as $session) {
-            $onlineUsers = $session->user->name;
+            $onlineUsers[] = $session->user->name;
         }
         return $app['twig']->render('login.html.twig', array(
             'error'         => $app['security.last_error']($request),
