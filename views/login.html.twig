@@ -4,16 +4,6 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}" type="text/css" />
 {% endblock %}
 
-{% block javascripts %}
-<script type="text/javascript">
-    jQuery(function($){
-        $('#register_button').click(function(){
-            location = '{{ path('register') }}';
-        });
-    });
-</script>
-{% endblock %}
-
 {% block body %}
 <div class="login-container">
     <div class="chat-title">Чат (бета)</div>
@@ -24,7 +14,7 @@
         <div><b>Пароль</b></div>
         <div><input type="password" name="_password" value="" /></div>
         <div><input type="submit" value="Войти"/></div>
-        <div><input id="register_button" type="button" value="Регистрация"/></div>
+        <div><a href="{{ path('register') }}" class="button">Регистрация</a></div>
     </form>
     Сейчас в чате {{ online_users|length>0 ? online_users|join(', ') : 'никого нет :-(' }}
 </div>

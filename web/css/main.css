@@ -6,7 +6,7 @@ body {
     font-size: 12px;
     color: #FFF;
 }
-input {
+input, .button {
     font-size: 10pt;
     font-family: Tahoma;
     color: #FFF;
@@ -15,4 +15,10 @@ input {
 }
 .error {
     color: red;
+}
+.button {
+    padding: 0 6px;
+    cursor: default;
+    outline: none;
+    text-decoration: none;
 }
