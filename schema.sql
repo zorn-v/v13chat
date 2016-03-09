@@ -9,12 +9,23 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `abilities`;
 CREATE TABLE `abilities` (
-  `id` int(2) NOT NULL AUTO_INCREMENT,
-  `socr` text CHARACTER SET cp1251 NOT NULL,
-  `descr` text CHARACTER SET cp1251,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `descr` varchar(255) DEFAULT NULL,
   `price` int(5) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `abilities` (`id`, `name`, `title`, `descr`, `price`) VALUES
+(1, 'ABIL_SILENT', 'Пробка', 'Самая обыкновенная молчанка. Цель лишается способности писать в общий чат на 15 минут, может общаться лишь приватно.', 100),
+(2, 'ABIL_AVATAR', 'Другой образ', 'Позволяет установить аватару (20*20 px)', 500),
+(3, 'ABIL_ADD_COLORS', 'Другая речь', 'Добавляет в список разрешенных дополнительные цвета, которыми можно писать в общий поток. Цвет не один ;)', 1500),
+(4, 'ABIL_COLOR_NAME', 'Другое имя', 'Пример: <font color=''red''>В</font><font color=''green''>а</font><font color=''blue''>с</font><font color=''pink''>я</font>', 1000),
+(5, 'ABIL_INVIS', 'Невидимость', 'Ваш ник исчезает из списка посетителей чата, в общий поток и даже в приваты вы пишите от ника НЕВИДИМКА. После активации работает 2 часа.', 300),
+(6, 'ABIL_LEVEL_UP', 'Повышение', '+1 уровень', 1000),
+(7, 'ABIL_ANGELITE', 'Ангелитет', 'Абсолютная неприкосновенность в чате, скрытые способности.', 3000);
 
 DROP TABLE IF EXISTS `bans`;
 CREATE TABLE `bans` (
@@ -35,6 +46,7 @@ CREATE TABLE `config` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+
 INSERT INTO `config` (`key`, `value`, `description`) VALUES
 ('abils', '1', 'Включение/выключение способностей'),
 ('open', '0', 'Статус чата'),
@@ -51,7 +63,7 @@ CREATE TABLE `logs` (
   `act` text CHARACTER SET cp1251 NOT NULL,
   `admin` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
@@ -75,6 +87,7 @@ CREATE TABLE `roles` (
   `inherit_roles` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
 INSERT INTO `roles` (`id`, `title`, `description`, `inherit_roles`) VALUES
 (1, 'ROLE_SILENT_USER', 'Зарегеный юзер', NULL),
 (2, 'ROLE_USER', 'Зарегеный, может писать всем', '["ROLE_SILENT_USER"]'),
@@ -90,10 +103,10 @@ CREATE TABLE `sessions` (
   `sess_lifetime` mediumint(9) NOT NULL,
   `sess_time` int(10) unsigned NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `ip` varchar(16) COLLATE utf8_bin DEFAULT NULL,
+  `ip` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`sess_id`),
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `smiles`;
 CREATE TABLE `smiles` (
@@ -116,10 +129,9 @@ CREATE TABLE `users` (
   `birthday` varchar(10) DEFAULT NULL,
   `info` text,
   `site` varchar(255) DEFAULT NULL,
+  `points` int(6) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `dateofreg` int(20) NOT NULL DEFAULT '0',
-  `points` int(6) NOT NULL DEFAULT '0',
   `abil2` text NOT NULL,
   `abil3` text NOT NULL,
   `abil4` text NOT NULL,
@@ -137,12 +149,25 @@ CREATE TABLE `users` (
   KEY `role_id` (`role_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `user_abilities`;
+CREATE TABLE `user_abilities` (
+  `user_id` int(11) NOT NULL,
+  `ability_id` int(11) NOT NULL,
+  `data` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`,`ability_id`),
+  KEY `ability_id` (`ability_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+
+ALTER TABLE `user_abilities`
+  ADD CONSTRAINT `user_abilities_ibfk_2` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_abilities_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
