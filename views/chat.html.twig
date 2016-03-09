@@ -1,2 +1,20 @@
-You are logged as {{ app.user.username }} <a href="{{ path('logout') }}">Logout</a><br/>
-Roles is {{ app.user.roles|json_encode }}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }} in {{ app['chat.name'] }}{%endblock%}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/chat.css') }}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="chat-topic">
+        {{ topic }}
+        <a href="{{ path('logout') }}" style="color:blue;">logout</a>
+    </div>
+    <div class="chat-messages"></div>
+    <div class="chat-users"></div>
+    <div style="clear: both"></div>
+    <div class="chat-controls"></div>
+</div>
+{% endblock %}

@@ -2,6 +2,10 @@
 
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
+//Глобальные переменные
+$app['chat.name'] = 'v13 chat';
+
+
 //Сервис генерации урлов по имени роута. Так же становятся доступны twig функции path и url
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 //Шаблонизатор twig
