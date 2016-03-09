@@ -71,3 +71,46 @@
 .admin-link:hover {
     text-decoration: underline;
 }
+/* Controls block */
+.chat-controls button {
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+.control-clear {
+    color: #fff;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #666, #333);
+    background-color: #666;
+}
+.control-to {
+	width: 100px;
+	background: #cce5a2;
+	color: #000;
+	border: 1px solid #086b00;
+}
+.control-message {
+	width: 300px;
+	border: 1px solid #00a8e1;
+}
+.control-message:focus {
+    color: #000;
+	border: 1px solid #ffb600;
+    background-color: #efc867;
+}
+.control-smiles-button {
+	border: 1px solid #5EB0E5;
+    background: linear-gradient(to bottom, #AFDFFF, #6BB9FC);
+    background-color: #AFDFFF;
+}
+.control-send {
+	border: 1px solid #FF9C00;
+    background: linear-gradient(to bottom, #F6E4AA, #EF9C1F);
+    background-color: #F6E4AA;
+}
+#smilebox {
+    display: none;
+}
+#smilebox img, #smilebox-close {
+    cursor: pointer;
+}

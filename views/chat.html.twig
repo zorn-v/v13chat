@@ -27,7 +27,11 @@
     <div class="chat-controls">
         {{ form_start(chat_controls) }}
         {{ form_widget(chat_controls.clear, {'label':'X', 'attr':{'class':'control-clear', 'title':'Очистить все поля'}}) }}
-        {{ form_widget(chat_controls.to, {'attr':{'class':'control-to','title':'Имя человека для кого предназначено сообщение. Кроме него его никто не увидит. Для отправки нажмите <= напротив ника кому хотите написать.'}}) }}
+        {{ form_widget(chat_controls.to, {'attr':{
+            'class': 'control-to',
+            'readonly': true,
+            'title': 'Имя человека для кого предназначено сообщение. Кроме него его никто не увидит. Для отправки нажмите <= напротив ника кому хотите написать.'
+        }}) }}
         {% if is_granted('ROLE_MODERATOR') %}
             {{ form_widget(chat_controls.color, {'attr':{'class':'control-color'}}) }}
         {% endif %}
@@ -36,9 +40,10 @@
         {{ form_widget(chat_controls.send, {'label':'Отправить', 'attr':{'class':'control-send'}}) }}
         {{ form_end(chat_controls) }}
         <div id="smilebox">
-        {% for text, img in smiles %}
-            <img src="{{ asset('img/smiles/' ~ img) }}" data-smile-text="{{ text }}"/>
-        {% endfor %}
+            {% for text, img in smiles %}
+                <img src="{{ asset('img/smiles/' ~ img) }}" data-smile-text="{{ text }}"/>
+            {% endfor %}
+            <div id="smilebox-close">закрыть</div>
         </div>
     </div>
 </div>
