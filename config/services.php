@@ -2,9 +2,10 @@
 
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
-//Глобальные переменные
-$app['chat.name'] = 'v13 chat';
-
+//Глобальные переменные из таблицы config
+foreach (\App\Model\Config::all() as $config) {
+    $app['chat.config.'.$config->name] = $config->value;
+}
 
 //Сервис генерации урлов по имени роута. Так же становятся доступны twig функции path и url
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());

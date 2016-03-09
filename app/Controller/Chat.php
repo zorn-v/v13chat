@@ -10,7 +10,6 @@ class Chat
 {
     public function layout(Application $app, Request $request)
     {
-        $topic = Config::find('topic')->value;
-        return $app['twig']->render('chat.html.twig', ['topic'=>$topic]);
+        return $app['twig']->render('chat.html.twig');
     }
 }

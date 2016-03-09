@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ app.user.username }} in {{ app['chat.name'] }}{%endblock%}
+{% block title %}{{ app.user.username }} in {{ app['chat.config.title'] }}{%endblock%}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/chat.css') }}" type="text/css" />
@@ -9,7 +9,7 @@
 {% block body %}
 <div class="container">
     <div class="chat-topic">
-        {{ topic }}
+        {{ app['chat.config.topic'] }}
     </div>
     <div class="chat-messages"></div>
     <div class="chat-users">

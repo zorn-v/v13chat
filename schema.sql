@@ -41,17 +41,18 @@ CREATE TABLE `bans` (
 
 DROP TABLE IF EXISTS `config`;
 CREATE TABLE `config` (
-  `key` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `value` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`key`)
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
 
-INSERT INTO `config` (`key`, `value`, `description`) VALUES
+INSERT INTO `config` (`name`, `value`, `description`) VALUES
 ('abils', '1', 'Включение/выключение способностей'),
 ('open', '0', 'Статус чата'),
 ('regtype', '2', 'Тип регистрации (2 - авто, 1 - ручная, 0 - отключена)'),
 ('timeout', '900', 'Таймаут выкидывания необщительного народа, секунды'),
+('title', 'v13 chat', 'Название чата (в title страницы)'),
 ('topic', 'Добро пожаловать в наш чат', 'Топик'),
 ('topic_act', '1', 'Топик активен?');
 
@@ -153,7 +154,7 @@ DROP TABLE IF EXISTS `user_abilities`;
 CREATE TABLE `user_abilities` (
   `user_id` int(11) NOT NULL,
   `ability_id` int(11) NOT NULL,
-  `data` varchar(255) NOT NULL,
+  `data` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`,`ability_id`),
   KEY `ability_id` (`ability_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
