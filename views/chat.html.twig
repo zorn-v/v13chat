@@ -35,6 +35,11 @@
         {{ form_widget(chat_controls.smiles_button, {'label':'Смайлики', 'attr':{'class':'control-smiles-button'}}) }}
         {{ form_widget(chat_controls.send, {'label':'Отправить', 'attr':{'class':'control-send'}}) }}
         {{ form_end(chat_controls) }}
+        <div id="smilebox">
+        {% for text, img in smiles %}
+            <img src="{{ asset('img/smiles/' ~ img) }}" data-smile-text="{{ text }}"/>
+        {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

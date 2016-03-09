@@ -7,8 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ImageType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Model\Smile;
 
 class Chat
 {
@@ -39,6 +42,14 @@ class Chat
             ]);
         }
 
-        return $app['twig']->render('chat.html.twig', ['chat_controls' => $form->createView()]);
+        $smiles = [];
+        foreach (Smile::all() as $smile) {
+            $smiles[$smile->text] = $smile->img;
+        }
+
+        return $app['twig']->render('chat.html.twig', [
+            'chat_controls' => $form->createView(),
+            'smiles' => $smiles,
+        ]);
     }
 }
