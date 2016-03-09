@@ -17,6 +17,9 @@
             <div class="user-profile">Профиль</div>
             <a href="{{ path('logout') }}" class="user-logout">Выход</a>
         </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a class="admin-link">Админка</a>
+        {% endif %}
     </div>
     <div style="clear: both"></div>
     <div class="chat-controls"></div>

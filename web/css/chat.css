@@ -58,3 +58,11 @@
     background: linear-gradient(to bottom, #F32837, #D20300);
     background-color: #F32837;
 }
+.admin-link {
+    color: #f00;
+    text-decoration: none;
+    cursor: pointer;
+}
+.admin-link:hover {
+    text-decoration: underline;
+}
