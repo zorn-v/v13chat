@@ -77,10 +77,10 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 INSERT INTO `roles` (`id`, `title`, `description`, `inherit_roles`) VALUES
 (1, 'ROLE_SILENT_USER', 'Зарегеный юзер', NULL),
-(2, 'ROLE_USER', 'Зарегеный, может писать всем', NULL),
-(3, 'ROLE_MODERATOR', 'Модератор', NULL),
-(4, 'ROLE_REGISTRATOR', 'Регистратор', NULL),
-(5, 'ROLE_ADMIN', 'Администратор', '["ROLE_USER"]'),
+(2, 'ROLE_USER', 'Зарегеный, может писать всем', '["ROLE_SILENT_USER"]'),
+(3, 'ROLE_MODERATOR', 'Модератор', '["ROLE_USER"]'),
+(4, 'ROLE_REGISTRATOR', 'Регистратор', '["ROLE_MODERATOR"]'),
+(5, 'ROLE_ADMIN', 'Администратор', '["ROLE_REGISTRATOR"]'),
 (6, 'ROLE_SUPER_ADMIN', 'Суперадминистратор', '["ROLE_ADMIN"]');
 
 DROP TABLE IF EXISTS `sessions`;
