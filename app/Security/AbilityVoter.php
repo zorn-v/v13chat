@@ -31,9 +31,9 @@ class AbilityVoter extends Voter
         if (!$user instanceof AuthUser) {
             return false;
         }
-        //var_dump($user->getProfile()->whereHas('abilities', function ($q) {
-            //$q->where('name', $attribute);
-        //})->toSql());
-        //var_dump($user->getProfile()->abilities());
+
+        return $user->getProfile()->whereHas('abilities', function ($q) use ($attribute) {
+            $q->where('name', $attribute);
+        })->first() !== null;
     }
 }

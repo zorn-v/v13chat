@@ -15,6 +15,6 @@ class User extends Model
 
     public function abilities()
     {
-        $this->belongsToMany('App\\Model\\Ability', 'user_abilities')->withPivot('data');
+        return $this->belongsToMany('App\\Model\\Ability', 'user_abilities')->withPivot('data');
     }
 }
