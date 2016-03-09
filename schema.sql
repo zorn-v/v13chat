@@ -35,6 +35,13 @@ CREATE TABLE `config` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+INSERT INTO `config` (`key`, `value`, `description`) VALUES
+('abils', '1', 'Включение/выключение способностей'),
+('open', '0', 'Статус чата'),
+('regtype', '2', 'Тип регистрации (2 - авто, 1 - ручная, 0 - отключена)'),
+('timeout', '900', 'Таймаут выкидывания необщительного народа, секунды'),
+('topic', 'Добро пожаловать в наш чат', 'Топик'),
+('topic_act', '1', 'Топик активен?');
 
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
@@ -68,6 +75,13 @@ CREATE TABLE `roles` (
   `inherit_roles` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+INSERT INTO `roles` (`id`, `title`, `description`, `inherit_roles`) VALUES
+(1, 'ROLE_SILENT_USER', 'Зарегеный юзер', NULL),
+(2, 'ROLE_USER', 'Зарегеный, может писать всем', NULL),
+(3, 'ROLE_MODERATOR', 'Модератор', NULL),
+(4, 'ROLE_REGISTRATOR', 'Регистратор', NULL),
+(5, 'ROLE_ADMIN', 'Администратор', '["ROLE_USER"]'),
+(6, 'ROLE_SUPER_ADMIN', 'Суперадминистратор', '["ROLE_ADMIN"]');
 
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
