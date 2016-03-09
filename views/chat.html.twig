@@ -18,14 +18,23 @@
             <a href="{{ path('logout') }}" class="user-logout">Выход</a>
         </div>
         {% if is_granted('ROLE_ADMIN') %}
-        <a class="admin-link">Админка</a>
+        <div class="admin-controls">
+            <a class="admin-link">Админка</a>
+        </div>
         {% endif %}
     </div>
     <div style="clear: both"></div>
     <div class="chat-controls">
-        {% if is_granted('ABIL_ADD_COLORS') %}
-            ADD_COLORS AVAIL
+        {{ form_start(chat_controls) }}
+        {{ form_widget(chat_controls.clear, {'label':'X', 'attr':{'class':'control-clear', 'title':'Очистить все поля'}}) }}
+        {{ form_widget(chat_controls.to, {'attr':{'class':'control-to','title':'Имя человека для кого предназначено сообщение. Кроме него его никто не увидит. Для отправки нажмите <= напротив ника кому хотите написать.'}}) }}
+        {% if is_granted('ROLE_MODERATOR') %}
+            {{ form_widget(chat_controls.color, {'attr':{'class':'control-color'}}) }}
         {% endif %}
+        {{ form_widget(chat_controls.message, {'attr':{'class':'control-message'}}) }}
+        {{ form_widget(chat_controls.smiles_button, {'label':'Смайлики', 'attr':{'class':'control-smiles-button'}}) }}
+        {{ form_widget(chat_controls.send, {'label':'Отправить', 'attr':{'class':'control-send'}}) }}
+        {{ form_end(chat_controls) }}
     </div>
 </div>
 {% endblock %}

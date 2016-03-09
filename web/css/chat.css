@@ -15,6 +15,7 @@
     border: 2px solid #fff;
     border-radius: 5px;
     background-color: #343434;
+    text-align: left;
 }
 .chat-messages {
     float: left;
@@ -28,8 +29,12 @@
 }
 .chat-controls {
     clear: both;
-    height: 70px;
     margin-top: 10px;
+    padding: 20px;
+}
+/* Users block */
+.user-controls, .admin-controls {
+    text-align: center;
 }
 .user-controls {
     border-radius: 5px;
