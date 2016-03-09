@@ -73,12 +73,10 @@ class Auth
                 $user->email = $data['email'];
                 $user->icq = $data['icq'];
                 $user->site = $data['site'];
-                
+
                 $authUser = new AuthUser($user);
-                $user->pass = $app['security.encoder_factory']
-                    ->getEncoder($authUser)
-                    ->encodePassword($data['pass'], $authUser->getSalt());
-                
+                $user->pass = $app->encodePassword($authUser, $data['pass']);
+
                 $user->save();
 
                 $request->getSession()->getFlashBag()->add('message', 'Вы успешно зарегистрированы. Можете войти в чат со своим логином и паролем.');
