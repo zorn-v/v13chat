@@ -10,10 +10,14 @@
 <div class="container">
     <div class="chat-topic">
         {{ topic }}
-        <a href="{{ path('logout') }}" style="color:blue;">logout</a>
     </div>
     <div class="chat-messages"></div>
-    <div class="chat-users"></div>
+    <div class="chat-users">
+        <div class="user-controls">
+            <div class="user-profile">Профиль</div>
+            <a href="{{ path('logout') }}" class="user-logout">Выход</a>
+        </div>
+    </div>
     <div style="clear: both"></div>
     <div class="chat-controls"></div>
 </div>

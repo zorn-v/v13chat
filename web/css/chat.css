@@ -31,3 +31,30 @@
     height: 70px;
     margin-top: 10px;
 }
+.user-controls {
+    border-radius: 5px;
+    border: 2px solid #828A8F;
+    margin: 5px 10px;
+    background-color: #fff;
+}
+.user-profile, .user-logout {
+    display: inline-block;
+    width: 46%;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 2px;
+}
+.user-profile {
+    color: #000;
+    background: linear-gradient(to bottom, #FEE000, #FDB335);
+    background-color: #FEE000;
+}
+.user-logout {
+    color: #fff;
+    background: linear-gradient(to bottom, #F32837, #D20300);
+    background-color: #F32837;
+}
