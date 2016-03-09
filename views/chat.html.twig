@@ -22,6 +22,10 @@
         {% endif %}
     </div>
     <div style="clear: both"></div>
-    <div class="chat-controls"></div>
+    <div class="chat-controls">
+        {% if is_granted('ABIL_ADD_COLORS') %}
+            ADD_COLORS AVAIL
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
