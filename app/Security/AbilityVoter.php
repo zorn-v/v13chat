@@ -32,6 +32,6 @@ class AbilityVoter extends Voter
             return false;
         }
 
-        return $user->getAbility($attribute) !== null;
+        return $user->getProfile()->getAbility($attribute) !== null;
     }
 }

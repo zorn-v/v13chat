@@ -4,15 +4,19 @@ namespace App\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use App\Model\Session;
 
 class Ajax
 {
     public function usersList(Application $app, Request $request)
     {
-        return date('d.m.Y H:i:s');
-        return $app['twig']->render('chat.html.twig', [
-            'chat_controls' => $form->createView(),
-            'smiles' => $smiles,
+        $users = [];
+        $sessions = Session::whereNotNull('user_id')->get();
+        foreach ($sessions as $session) {
+            $users[] = $session->user;
+        }
+        return $app['twig']->render('ajax/users_list.html.twig', [
+            'users' => $users,
         ]);
     }
 }
