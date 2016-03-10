@@ -76,6 +76,18 @@
     height: 625px;
     overflow: auto;
     margin: 5px;
+    padding-left: 20px;
+}
+.kick-button, .ban-button {
+    width: 6px;
+    height: 10px;
+    display: inline-block;
+}
+.kick-button {
+    background-color: #f00;
+}
+.ban-button {
+    background-color: #09f;
 }
 /* Controls block */
 .chat-controls button {

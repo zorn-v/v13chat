@@ -1,3 +1,19 @@
 {% for user in users %}
-    <div>{{ user.name }}</div>
+    <div>
+    {% if is_granted('ROLE_REGISTRATOR') or user.ability('ABIL_INVIS') is null %}
+        {% if is_granted('ROLE_MODERATOR') and app.user.username != user.name and (app.user.profile.role_id - user.role_id)>0 %}
+            <a class="kick-button" title="Kick"></a>
+            <a class="ban-button" title="Ban"></a>
+        {% endif %}
+        {# avatar #}
+        <b>{{ (user.ability('ABIL_COLOR_NAME') is not null ? user.ability('ABIL_COLOR_NAME') : user.name)|raw }}</b>
+        {# shutup #}
+        {% if user.ability('ABIL_WEDDING') is not null %}
+            <img src="{{ asset('img/rings.png') }}" title="Брачные узы с {{ user.ability('ABIL_WEDDING') }}"/>
+        {% endif %}
+        {% if user.ability('ABIL_INVIS') is not null %}
+            <img src="{{ asset('img/hidden.gif') }}" title="Невидимость"/>
+        {% endif %}
+    {% endif %}
+    </div>
 {% endfor %}
