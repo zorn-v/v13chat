@@ -25,18 +25,19 @@ INSERT INTO `abilities` (`id`, `name`, `title`, `descr`, `price`) VALUES
 (4, 'ABIL_COLOR_NAME', 'Другое имя', 'Пример: <font color=''red''>В</font><font color=''green''>а</font><font color=''blue''>с</font><font color=''pink''>я</font>', 1000),
 (5, 'ABIL_INVIS', 'Невидимость', 'Ваш ник исчезает из списка посетителей чата, в общий поток и даже в приваты вы пишите от ника НЕВИДИМКА. После активации работает 2 часа.', 300),
 (6, 'ABIL_LEVEL_UP', 'Повышение', '+1 уровень', 1000),
-(7, 'ABIL_ANGELITE', 'Ангелитет', 'Абсолютная неприкосновенность в чате, скрытые способности.', 3000);
+(7, 'ABIL_ANGELITE', 'Ангелитет', 'Абсолютная неприкосновенность в чате, скрытые способности.', 3000),
+(8, 'ABIL_WEDDING', 'Брачные узы', 'Добавляет иконку в списке пользователей', 10000);
 
 DROP TABLE IF EXISTS `bans`;
 CREATE TABLE `bans` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `name` text CHARACTER SET cp1251 NOT NULL,
-  `author` text CHARACTER SET cp1251 NOT NULL,
-  `reason` text CHARACTER SET cp1251 NOT NULL,
-  `time` text CHARACTER SET cp1251 NOT NULL,
-  `date` text CHARACTER SET cp1251 NOT NULL,
-  `active` int(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `reason` tinyint(4) NOT NULL,
+  `until` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`reason`),
+  KEY `author_id` (`author_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `config`;
@@ -206,11 +207,15 @@ DROP TABLE IF EXISTS `user_abilities`;
 CREATE TABLE `user_abilities` (
   `user_id` int(11) NOT NULL,
   `ability_id` int(11) NOT NULL,
-  `data` varchar(255) NOT NULL,
+  `data` text NOT NULL,
   PRIMARY KEY (`user_id`,`ability_id`),
   KEY `ability_id` (`ability_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+ALTER TABLE `bans`
+  ADD CONSTRAINT `bans_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
