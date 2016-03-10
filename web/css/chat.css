@@ -11,7 +11,7 @@
 .chat-topic {
     font-size: 18px;
 }
-.chat-messages, .chat-users, .chat-controls {
+.chat-messages, .chat-users, .chat-controls, #smilebox {
     border: 2px solid #fff;
     border-radius: 5px;
     background-color: #343434;
@@ -84,33 +84,43 @@
     background-color: #666;
 }
 .control-to {
-	width: 100px;
-	background: #cce5a2;
-	color: #000;
-	border: 1px solid #086b00;
+    width: 100px;
+    background: #cce5a2;
+    color: #000;
+    border: 1px solid #086b00;
+}
+.control-color {
+    border: none;
 }
 .control-message {
-	width: 300px;
-	border: 1px solid #00a8e1;
+    width: 500px;
+    border: 1px solid #00a8e1;
 }
 .control-message:focus {
     color: #000;
-	border: 1px solid #ffb600;
+    border: 1px solid #ffb600;
     background-color: #efc867;
 }
 .control-smiles-button {
-	border: 1px solid #5EB0E5;
+    border: 1px solid #5EB0E5;
     background: linear-gradient(to bottom, #AFDFFF, #6BB9FC);
     background-color: #AFDFFF;
 }
 .control-send {
-	border: 1px solid #FF9C00;
+    border: 1px solid #FF9C00;
     background: linear-gradient(to bottom, #F6E4AA, #EF9C1F);
     background-color: #F6E4AA;
 }
+.smiles-container {
+    display: inline-block;
+    position: absolute;
+    bottom: 100px;
+}
 #smilebox {
     display: none;
+    width: 300px;
+    text-align: center;
 }
-#smilebox img, #smilebox-close {
+#smilebox img {
     cursor: pointer;
 }

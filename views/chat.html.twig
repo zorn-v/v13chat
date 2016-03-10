@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{{ asset('css/chat.css') }}" type="text/css" />
 {% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('js/chat.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block body %}
 <div class="container">
     <div class="chat-topic">
@@ -36,15 +40,17 @@
             {{ form_widget(chat_controls.color, {'attr':{'class':'control-color'}}) }}
         {% endif %}
         {{ form_widget(chat_controls.message, {'attr':{'class':'control-message'}}) }}
-        {{ form_widget(chat_controls.smiles_button, {'label':'Смайлики', 'attr':{'class':'control-smiles-button'}}) }}
-        {{ form_widget(chat_controls.send, {'label':'Отправить', 'attr':{'class':'control-send'}}) }}
-        {{ form_end(chat_controls) }}
-        <div id="smilebox">
+        <div class="smiles-container">
+            <div id="smilebox">
             {% for text, img in smiles %}
                 <img src="{{ asset('img/smiles/' ~ img) }}" data-smile-text="{{ text }}"/>
             {% endfor %}
-            <div id="smilebox-close">закрыть</div>
+            </div>
         </div>
+        {{ form_widget(chat_controls.smiles_button, {'label':'Смайлики', 'attr':{'class':'control-smiles-button'}}) }}
+        {{ form_widget(chat_controls.send, {'label':'Отправить', 'attr':{'class':'control-send'}}) }}
+        {{ form_end(chat_controls) }}
+
     </div>
 </div>
 {% endblock %}

@@ -4,11 +4,9 @@ namespace App\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\ImageType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Model\Smile;
@@ -18,7 +16,7 @@ class Chat
     public function layout(Application $app, Request $request)
     {
         $form = $app->form()
-            ->add('clear', ResetType::class)
+            ->add('clear', ButtonType::class)
             ->add('to', TextType::class, ['required' => false])
             ->add('message', TextType::class)
             ->add('smiles_button', ButtonType::class)
