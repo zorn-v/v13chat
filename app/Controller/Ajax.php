@@ -23,8 +23,12 @@ class Ajax
 
     public function messages(Application $app, Request $request)
     {
+        $messages = Message::with('user')
+            ->with('recipient')
+            ->orderBy('created_at', 'DESC')
+            ->get();
         return $app['twig']->render('ajax/messages.html.twig', [
-            'messages' => Message::with('user')->with('recipient')->get(),
+            'messages' => $messages,
         ]);
     }
 }

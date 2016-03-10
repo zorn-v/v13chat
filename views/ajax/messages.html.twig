@@ -1,5 +1,12 @@
 {% for message in messages %}
-    <div>
+    <div style="{{ app.user.username in message.message ? 'text-decoration: underline;' }}">
+        {% if is_granted('ROLE_MODERATOR') %}
+            <a href="" style="color:red;">x</a>
+        {% endif %}
+        {% if ('now'|date('U') - message.created_at|date('U')) < 60 %}
+            <span style="color:red;font-size:14px;">(Новое!)</span>
+        {% endif %}
+
         [{{ message.created_at|date('d.m.Y H:i:s') }}]
 
         {% if message['user_id'] is defined %}
