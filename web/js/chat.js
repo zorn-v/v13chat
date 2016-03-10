@@ -16,7 +16,8 @@ jQuery(function ($) {
     $('.chat-controls .control-clear').click(function () {
         $clearControls.val('');
     });
-    $('#smilebox img').click(function () {
+    $('#smilebox img').click(function (e) {
+        e.stopPropagation();
         $message.val($message.val() + ' ' + $(this).data('smile-text') + ' ');
     });
 });
