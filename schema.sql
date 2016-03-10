@@ -206,7 +206,7 @@ DROP TABLE IF EXISTS `user_abilities`;
 CREATE TABLE `user_abilities` (
   `user_id` int(11) NOT NULL,
   `ability_id` int(11) NOT NULL,
-  `data` varchar(255) DEFAULT NULL,
+  `data` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`,`ability_id`),
   KEY `ability_id` (`ability_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -219,8 +219,8 @@ ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 
 ALTER TABLE `user_abilities`
-  ADD CONSTRAINT `user_abilities_ibfk_2` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_abilities_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_abilities_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_abilities_ibfk_2` FOREIGN KEY (`ability_id`) REFERENCES `abilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

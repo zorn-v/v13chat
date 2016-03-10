@@ -32,8 +32,6 @@ class AbilityVoter extends Voter
             return false;
         }
 
-        return $user->getProfile()->whereHas('abilities', function ($q) use ($attribute) {
-            $q->where('name', $attribute);
-        })->first() !== null;
+        return $user->getAbility($attribute) !== null;
     }
 }
