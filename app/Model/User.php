@@ -18,6 +18,11 @@ class User extends Model
         return $this->belongsToMany('App\\Model\\Ability', 'user_abilities')->withPivot('data');
     }
 
+    public function bans()
+    {
+        return $this->hasMany('App\\Model\\Ban');
+    }
+
     public function getAbility($userAbil)
     {
         if ($this->userAbils === null) {
@@ -26,5 +31,13 @@ class User extends Model
             }
         }
         return isset($this->userAbils[$userAbil]) ? $this->userAbils[$userAbil] : null;
+    }
+
+    public function isSilent()
+    {
+        return $this->bans()
+            ->where('reason', Ban::REASON_SILENT)
+            ->where('until', '>',  new \DateTime())
+            ->first() !== null;
     }
 }
