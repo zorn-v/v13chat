@@ -24,7 +24,7 @@ class Ajax
     public function messages(Application $app, Request $request)
     {
         return $app['twig']->render('ajax/messages.html.twig', [
-            'messages' => Message::with('user_from')->with('recipient')->get(),
+            'messages' => Message::with('user')->with('recipient')->get(),
         ]);
     }
 }

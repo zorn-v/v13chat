@@ -3,10 +3,10 @@
         [{{ message.created_at|date('d.m.Y H:i:s') }}]
 
         {% if message['user_id'] is defined %}
-            &lt;{{ message.user_from.name }}&gt;
+            &lt;{{ message.user.name }}&gt;
         {% endif %}
 
-        {% if message['user_to'] is defined %}
+        {% if message['recipient_id'] is defined %}
             =&gt; {{ message.recipient.name }}
         {% endif %}
         {{ message.message|raw }}
