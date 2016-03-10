@@ -26,6 +26,7 @@
             <a class="admin-link">Админка</a>
         </div>
         {% endif %}
+        <div id="users-list" data-ajax-block="{{ path('users-list') }}"></div>
     </div>
     <div style="clear: both"></div>
     <div class="chat-controls">
@@ -50,7 +51,6 @@
         {{ form_widget(chat_controls.smiles_button, {'label':'Смайлики', 'attr':{'class':'control-smiles-button'}}) }}
         {{ form_widget(chat_controls.send, {'label':'Отправить', 'attr':{'class':'control-send'}}) }}
         {{ form_end(chat_controls) }}
-
     </div>
 </div>
 {% endblock %}

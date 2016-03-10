@@ -20,4 +20,23 @@ jQuery(function ($) {
         e.stopPropagation();
         $message.val($message.val() + ' ' + $(this).data('smile-text') + ' ');
     });
+
+    /* ajax */
+    var $ajaxBlocks = $('[data-ajax-block]');
+    function updateBlocks() {
+        $ajaxBlocks.each(function () {
+            var $block = $(this);
+            $.ajax($block.data('ajax-block'), {
+                method: 'POST',
+                success: function (data) {
+                    $block.html(data);
+                },
+                error: function () {
+                    location.reload();
+                }
+            });
+        });
+    }
+    setInterval(updateBlocks, 5000);
+    updateBlocks();
 });

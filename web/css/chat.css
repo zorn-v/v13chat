@@ -71,6 +71,12 @@
 .admin-link:hover {
     text-decoration: underline;
 }
+/* Users list */
+#users-list {
+    height: 625px;
+    overflow: auto;
+    margin: 5px;
+}
 /* Controls block */
 .chat-controls button {
     cursor: pointer;
