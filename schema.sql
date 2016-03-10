@@ -70,15 +70,14 @@ CREATE TABLE `logs` (
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
-  `name` text CHARACTER SET cp1251 NOT NULL,
-  `to` text CHARACTER SET cp1251 NOT NULL,
-  `message` text CHARACTER SET cp1251 NOT NULL,
-  `date` int(20) NOT NULL DEFAULT '0',
-  `ad1` text CHARACTER SET cp1251 NOT NULL,
-  `ad2` text CHARACTER SET cp1251 NOT NULL,
-  `ad3` text CHARACTER SET cp1251 NOT NULL,
-  `ad4` text CHARACTER SET cp1251 NOT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` int(11) DEFAULT NULL,
+  `user_to` int(11) DEFAULT NULL,
+  `message` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `user_to` (`user_to`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `roles`;
@@ -216,6 +215,10 @@ CREATE TABLE `user_abilities` (
 ALTER TABLE `bans`
   ADD CONSTRAINT `bans_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`user_to`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
