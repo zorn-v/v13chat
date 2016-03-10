@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    public function userFrom()
+    public function user_from()
     {
-        return $this->belongsTo('App\\Model\\User');
+        return $this->belongsTo('App\\Model\\User', 'user_id');
     }
 
-    public function userTo()
+    public function recipient()
     {
         return $this->belongsTo('App\\Model\\User', 'user_to');
     }

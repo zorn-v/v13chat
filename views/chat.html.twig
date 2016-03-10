@@ -15,7 +15,9 @@
     <div class="chat-topic">
         {{ app['chat.config.topic'] }}
     </div>
-    <div class="chat-messages"></div>
+    <div class="chat-messages">
+        <div class="messages-container" data-ajax-block="{{ path('messages') }}"></div>
+    </div>
     <div class="chat-users">
         <div class="user-controls">
             <div class="user-profile">Профиль</div>

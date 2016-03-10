@@ -1,0 +1,14 @@
+{% for message in messages %}
+    <div>
+        [{{ message.created_at|date('d.m.Y H:i:s') }}]
+
+        {% if message['user_id'] is defined %}
+            &lt;{{ message.user_from.name }}&gt;
+        {% endif %}
+
+        {% if message['user_to'] is defined %}
+            =&gt; {{ message.recipient.name }}
+        {% endif %}
+        {{ message.message|raw }}
+    </div>
+{% endfor %}

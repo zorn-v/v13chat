@@ -21,6 +21,11 @@
     float: left;
     width: 960px;
     height: 700px;
+    overflow: auto;
+}
+.messages-container {
+    margin: 5px;
+    padding-left: 10px;
 }
 .chat-users {
     float: right;

@@ -5,6 +5,7 @@ namespace App\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use App\Model\Session;
+use App\Model\Message;
 
 class Ajax
 {
@@ -17,6 +18,13 @@ class Ajax
         }
         return $app['twig']->render('ajax/users_list.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    public function messages(Application $app, Request $request)
+    {
+        return $app['twig']->render('ajax/messages.html.twig', [
+            'messages' => Message::with('user_from')->with('recipient')->get(),
         ]);
     }
 }
