@@ -10,12 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Model\Smile;
+use App\Model\Message;
+use App\Model\User;
 
 class Chat
 {
     public function layout(Application $app, Request $request)
     {
-        $form = $app->form()
+        $form = $app->form(['color' => $request->cookies->get('v13chat-msg-color')])
             ->add('clear', ButtonType::class)
             ->add('to', TextType::class, ['required' => false])
             ->add('message', TextType::class)
@@ -35,6 +37,46 @@ class Chat
         $smiles = [];
         foreach (Smile::all() as $smile) {
             $smiles[$smile->text] = $smile->img;
+        }
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+
+            if (!empty($data['color'])) {
+                setcookie('v13chat-msg-color', $data['color']);
+            }
+            if (empty($data['to']) && (!$app->isGranted('ROLE_USER') || $app['user']->isSilent())) {
+                $app->addFlash($request, 'На вас молчанка! Общайтесь только приватно.');
+                return $app->redirectToRoute('chat');
+            }
+            $msg = htmlspecialchars($data['message']);
+            $msg = preg_replace('#https?://[^\s]+#', '<a href="\0" target="_blank">\0</a>', $msg);
+            $msg = str_replace(
+                array_keys($smiles),
+                array_map(
+                    function ($img) {
+                        return '[smile]'.$img.'[/smile]';
+                    },
+                    array_values($smiles)
+                ),
+                $msg
+            );
+
+            $message = new Message();
+            $message->user_id = $app['user']->id;
+            if (!empty($data['to'])) {
+                $recipient = User::where('name', $data['to'])->first();
+                if ($recipient) {
+                    $message->recipient_id = $recipient->id;
+                }
+            }
+            if ($app->isGranted('ROLE_MODERATOR') && !empty($data['color'])) {
+                $msg = '<span style="color:'.$data['color'].';">'.$msg.'</span>';
+            }
+            $message->message = $msg;
+            $message->save();
+            return $app->redirectToRoute('chat');
         }
 
         return $app['twig']->render('chat.html.twig', [

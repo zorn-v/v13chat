@@ -34,6 +34,12 @@
     text-decoration: underline;
 }
 /* messages */
+.chat-message a {
+    color: blue;
+}
+.chat-message a:hover {
+    text-decoration: none;
+}
 .message-new {
     color: #f00;
     font-size: 10px;
@@ -45,6 +51,7 @@
 }
 .message-private {
     color: #66bc29;
+    font-weight: bold;
 }
 .message-with-you {
     text-decoration: underline;

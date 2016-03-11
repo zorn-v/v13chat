@@ -19,7 +19,7 @@ jQuery(function ($) {
     });
     $('#smilebox img').click(function (e) {
         e.stopPropagation();
-        $message.val($message.val() + ' ' + $(this).data('smile-text') + ' ');
+        $message.val($message.val() + $(this).data('smile-text'));
     });
 
     $('[data-nick]').click(function () {

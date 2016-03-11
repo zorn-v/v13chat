@@ -42,7 +42,7 @@
         {% if is_granted('ROLE_MODERATOR') %}
             {{ form_widget(chat_controls.color, {'attr':{'class':'control-color'}}) }}
         {% endif %}
-        {{ form_widget(chat_controls.message, {'attr':{'class':'control-message'}}) }}
+        {{ form_widget(chat_controls.message, {'attr':{'class':'control-message', 'autocomplete':'off'}}) }}
         <div class="smiles-container">
             <div id="smilebox">
             {% for text, img in smiles %}

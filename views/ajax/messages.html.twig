@@ -7,7 +7,7 @@
     {% elseif message['user_id'] is defined %}
         {% set messageClass = 'message-public' %}
     {% endif %}
-    <div class="{{ messageClass }} {{ app.user.username in message.message ? 'message-with-you' }}">
+    <div class="chat-message {{ messageClass }} {{ app.user.username in message.message ? 'message-with-you' }}">
         {% if is_granted('ROLE_MODERATOR') %}
             <a href="" style="color:red;">x</a>
         {% endif %}

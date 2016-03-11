@@ -75,7 +75,7 @@ class Auth
                 $user->pass = $app->encodePassword($user, $data['pass']);
                 $user->save();
 
-                $request->getSession()->getFlashBag()->add('message', 'Вы успешно зарегистрированы. Можете войти в чат со своим логином и паролем.');
+                $app->addFlash($request, 'Вы успешно зарегистрированы. Можете войти в чат со своим логином и паролем.');
 
                 return $app->redirect($app['url_generator']->generate('login'));
             }
