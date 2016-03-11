@@ -24,15 +24,8 @@ jQuery(function ($) {
         $message.val($message.val() + $(this).data('smile-text'));
     });
 
-    $('[data-nick]').click(function () {
-        $to.val($(this).data('nick'));
-    });
-
     /* ajax */
     var $ajaxBlocks = $('[data-ajax-block]');
-    $ajaxBlocks.delegate('[data-nick]', 'click', function () {
-        $to.val($(this).data('nick'));
-    });
     function updateBlocks() {
         $ajaxBlocks.each(function () {
             var $block = $(this);
@@ -51,11 +44,26 @@ jQuery(function ($) {
             });
         });
     }
+    $ajaxBlocks
+        .delegate('[data-nick]', 'click', function () {
+            $to.val($(this).data('nick'));
+        })
+        .delegate('[data-ajax-send]', 'click', function () {
+            $.post($(this).data('ajax-send'), updateBlocks);
+        });
+
     $('form[name="form"]').submit(function (e) {
         e.preventDefault();
-        $.post(this.action, $(this).serialize(), function () {
-            $clearControls.val('');
-            updateBlocks();
+        $.ajax(this.action, {
+            data: $(this).serialize(),
+            method: 'POST',
+            success: function () {
+                $clearControls.val('');
+                updateBlocks();
+            },
+            error: function () {
+                location.reload();
+            },
         });
     });
 

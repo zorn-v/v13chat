@@ -35,4 +35,12 @@ class Ajax
             'messages' => $messages,
         ]);
     }
+
+    public function messageDelete(Application $app, Request $request, $id)
+    {
+        if ($app->isGranted('ROLE_MODERATOR')) {
+            Message::destroy($id);
+        }
+        return '';
+    }
 }

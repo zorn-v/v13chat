@@ -48,7 +48,7 @@ class Chat
             }
             if (empty($data['to']) && (!$app->isGranted('ROLE_USER') || $app['user']->isSilent())) {
                 $app->addFlash($request, 'На вас молчанка! Общайтесь только приватно.');
-                return $app->redirectToRoute('chat');
+                throw new \RuntimeException('Ajax reload');
             }
             $msg = htmlspecialchars($data['message']);
             $msg = preg_replace('#https?://[^\s]+#', '<a href="\0" target="_blank">\0</a>', $msg);
@@ -76,7 +76,7 @@ class Chat
             }
             $message->message = $msg;
             $message->save();
-            return $app->redirectToRoute('chat');
+            return '';
         }
 
         return $app['twig']->render('chat.html.twig', [

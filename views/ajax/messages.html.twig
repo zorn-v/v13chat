@@ -7,16 +7,17 @@
     {% elseif message['user_id'] is defined %}
         {% set messageClass = 'message-public' %}
     {% endif %}
-    <div class="chat-message {{ messageClass }} {{ app.user.username in message.message ? 'message-with-you' }}">
+    <div class="chat-message {{ messageClass }}">
         {% if is_granted('ROLE_MODERATOR') %}
-            <a href="" style="color:red;">x</a>
+            <span data-ajax-send="{{ path('message-delete', {'id': message.id}) }}" class="message-delete">x</span>
         {% endif %}
+        <span class="{{ app.user.username in message.message ? 'message-with-you' }}">
         {% if ('now'|date('U') - message.created_at|date('U')) < 60 %}
             <span class="message-new">(Новое!)</span>
         {% endif %}
 
         {% if message['user_id'] is defined %}
-            <b><span title="{{ messageDate }}">[{{ messageTime }}]</span></b>
+            <span title="{{ messageDate }}">[{{ messageTime }}]</span>
         {% else %}
             [{{ messageDate }} {{ messageTime }}]
         {% endif %}
@@ -36,5 +37,6 @@
         {% endif %}
         :
         {{ message.message|smiles|raw }}
+        </span>
     </div>
 {% endfor %}

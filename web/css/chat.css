@@ -27,7 +27,7 @@
     margin: 5px;
     padding-left: 10px;
 }
-[data-nick] {
+[data-nick], [data-ajax-send] {
     cursor: pointer;
 }
 [data-nick]:hover {
@@ -39,6 +39,13 @@
 }
 .chat-message a:hover {
     text-decoration: none;
+}
+.message-delete {
+    color: red;
+    font-weight: bold;
+}
+.message-delete:hover + * {
+    text-decoration: underline;
 }
 .message-new {
     color: #f00;
@@ -56,6 +63,7 @@
 .message-with-you {
     text-decoration: underline;
 }
+/* blocks */
 .chat-users {
     float: right;
     width: 300px;
