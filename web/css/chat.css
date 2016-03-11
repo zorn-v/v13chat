@@ -27,6 +27,21 @@
     margin: 5px;
     padding-left: 10px;
 }
+[data-nick] {
+    cursor: pointer;
+}
+/* messages */
+.message-service {
+    color: #888;
+    font-style: italic;
+    font-weight: bold;
+}
+.message-private {
+    color: #66bc29;
+}
+.message-with-you {
+    text-decoration: underline;
+}
 .chat-users {
     float: right;
     width: 300px;

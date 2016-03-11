@@ -6,7 +6,7 @@
             <a href="" class="ban-button" title="Ban"></a>
         {% endif %}
         {# avatar #}
-        <b>{{ (user.ability('ABIL_COLOR_NAME') is not null ? user.ability('ABIL_COLOR_NAME') : user.name)|raw }}</b>
+        <b>{{ (user.ability('ABIL_COLOR_NAME') ?: user.name)|raw }}</b>
         {% if user.isSilent %}
             {% if is_granted('ROLE_REGISTRATOR') %}
                 <a href=""><img src="{{ asset('img/silent.png') }}" title="На пользователе молчанка"/></a>
@@ -14,10 +14,10 @@
                 <img src="{{ asset('img/silent.png') }}" title="На пользователе молчанка"/>
             {% endif %}
         {% endif %}
-        {% if user.ability('ABIL_WEDDING') is not null %}
+        {% if user.ability('ABIL_WEDDING') %}
             <img src="{{ asset('img/rings.png') }}" title="Брачные узы с {{ user.ability('ABIL_WEDDING') }}"/>
         {% endif %}
-        {% if user.ability('ABIL_INVIS') is not null %}
+        {% if user.ability('ABIL_INVIS') %}
             <img src="{{ asset('img/hidden.gif') }}" title="Невидимость"/>
         {% endif %}
     {% endif %}

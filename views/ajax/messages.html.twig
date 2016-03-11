@@ -1,5 +1,13 @@
 {% for message in messages %}
-    <div style="{{ app.user.username in message.message ? 'text-decoration: underline;' }}">
+    {% set messageDate = message.created_at|date('d.m.Y') %}
+    {% set messageTime = message.created_at|date('H:i:s') %}
+    {% set messageClass = 'message-service' %}
+    {% if message['recipient_id'] is defined %}
+        {% set messageClass = 'message-private' %}
+    {% elseif message['user_id'] is defined %}
+        {% set messageClass = 'message-public' %}
+    {% endif %}
+    <div class="{{ messageClass }} {{ app.user.username in message.message ? 'message-with-you' }}">
         {% if is_granted('ROLE_MODERATOR') %}
             <a href="" style="color:red;">x</a>
         {% endif %}
@@ -7,15 +15,26 @@
             <span style="color:red;font-size:14px;">(Новое!)</span>
         {% endif %}
 
-        [{{ message.created_at|date('d.m.Y H:i:s') }}]
+        {% if message['user_id'] is defined %}
+            <b><span title="{{ messageDate }}">[{{ messageTime }}]</span></b>
+        {% else %}
+            [{{ messageDate }} {{ messageTime }}]
+        {% endif %}
 
         {% if message['user_id'] is defined %}
-            &lt;{{ message.user.name }}&gt;
+            {% if message.user.ability('ABIL_INVIS') %}
+                <i>невидимка</i>
+            {% else %}
+                <span data-nick="{{ message.user.name }}">
+                    {{ (message.user.ability('ABIL_COLOR_NAME') ?: message.user.name)|raw }}
+                </span>
+            {% endif %}
         {% endif %}
 
         {% if message['recipient_id'] is defined %}
-            =&gt; {{ message.recipient.name }}
+            =&gt; {{ (message.recipient.ability('ABIL_COLOR_NAME') ?: message.recipient.name)|raw }}
         {% endif %}
+        :
         {{ message.message|raw }}
     </div>
 {% endfor %}
