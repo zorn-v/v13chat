@@ -1,7 +1,7 @@
 {% for user in users %}
     <div>
     {% if is_granted('ROLE_REGISTRATOR') or user.ability('ABIL_INVIS') is null %}
-        {% if is_granted('ROLE_MODERATOR') and is_granted('CAN_KICK') %}
+        {% if is_granted('ROLE_MODERATOR') and is_granted('CAN_KICK', user) %}
             <a href="" class="kick-button" title="Kick"></a>
             <a href="" class="ban-button" title="Ban"></a>
         {% endif %}
