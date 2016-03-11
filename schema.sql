@@ -60,10 +60,10 @@ INSERT INTO `config` (`name`, `value`, `description`) VALUES
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text CHARACTER SET cp1251 NOT NULL,
-  `date` text CHARACTER SET cp1251 NOT NULL,
-  `act` text CHARACTER SET cp1251 NOT NULL,
-  `admin` int(1) NOT NULL DEFAULT '0',
+  `user_name` varchar(255) DEFAULT NULL,
+  `text` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -185,18 +185,6 @@ CREATE TABLE `users` (
   `points` int(6) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `abil2` text NOT NULL,
-  `abil3` text NOT NULL,
-  `abil4` text NOT NULL,
-  `abil5` text NOT NULL,
-  `abil6` text NOT NULL,
-  `abil7` text NOT NULL,
-  `abil8` text NOT NULL,
-  `abil9` text NOT NULL,
-  `abil10` text NOT NULL,
-  `abil11` text NOT NULL,
-  `abil12` text NOT NULL,
-  `abil13` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `role_id` (`role_id`)
@@ -207,6 +195,7 @@ CREATE TABLE `user_abilities` (
   `user_id` int(11) NOT NULL,
   `ability_id` int(11) NOT NULL,
   `data` text NOT NULL,
+  `until` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`,`ability_id`),
   KEY `ability_id` (`ability_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
