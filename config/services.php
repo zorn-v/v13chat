@@ -76,4 +76,6 @@ $app['security.voters'] = $app->extend('security.voters', function($voters) use 
 $app['dispatcher']->addListener(Symfony\Component\HttpKernel\KernelEvents::REQUEST, function() use ($app) {
     //Очистка старых банов
     App\Model\Ban::where('until', '<', new \DateTime())->delete();
+    //Удаление просроченных абилок
+    App\Model\UserAbility::where('until', '<', new \DateTime())->delete();
 });
