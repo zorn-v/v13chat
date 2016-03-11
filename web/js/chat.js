@@ -29,11 +29,15 @@ jQuery(function ($) {
             $.ajax($block.data('ajax-block'), {
                 method: 'POST',
                 success: function (data) {
-                    $block.html(data);
+                    if (data.indexOf('login') > 0) {
+                        location.reload();
+                    } else {
+                        $block.html(data);
+                    }
                 },
-                error: function () {
-                    location.reload();
-                }
+                error: function (xhr) {
+                    $block.html(xhr.responseText);
+                },
             });
         });
     }
