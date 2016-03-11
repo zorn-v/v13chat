@@ -91,6 +91,7 @@ $app['dispatcher']->addListener(Symfony\Component\HttpKernel\KernelEvents::REQUE
                     (new App\Model\Message([
                         'message'=>'Теряет связь и уходит '.$session->user->name.'...'
                     ]))->save();
+                    $session->delete();
                     $app['request']->getSession()->invalidate(1);
                 }
             }
