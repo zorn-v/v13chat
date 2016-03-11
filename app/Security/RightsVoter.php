@@ -33,6 +33,7 @@ class RightsVoter extends Voter
         /** @var User $victim */
         $victim = $subject;
         switch($attribute) {
+            //TODO отвязать от role_id
             case self::CAN_KICK:
                 return $user->role_id > $victim->role_id;
         }

@@ -24,6 +24,27 @@ class User extends Model implements UserInterface
         return $this->hasMany('App\\Model\\Ban');
     }
 
+    //TODO отвязать от role_id
+    public function getAvailColors()
+    {
+        $colors = [];
+        if ($this->role_id > 2) {
+            $colors = [
+                'White (1)' => 'white',
+                'Pink (3)' => 'pink',
+                'Limegreen (3)' => 'limegreen',
+            ];
+            if ($this->role_id > 3) {
+                $colors['Yellow (4)'] = 'yellow';
+                $colors['Red (4)'] = 'red';
+                if ($this->role_id > 4) {
+                    $colors['Aqua (5)'] = 'aqua';
+                }
+            }
+        }
+        return $colors;
+    }
+
     public function getAbility($userAbil)
     {
         if ($this->userAbils === null) {

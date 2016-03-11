@@ -24,16 +24,8 @@ class Chat
             ->getForm();
 
         if ($app->isGranted('ROLE_MODERATOR')) {
-            $choices = ['White (1)'=>'white', 'Pink (3)'=>'pink', 'Limegreen (3)'=>'limegreen'];
-            if ($app->isGranted('ROLE_REGISTRATOR')) {
-                $choices['Yellow (4)'] = 'yellow';
-                $choices['Red (4)'] = 'red';
-            }
-            if ($app->isGranted('ROLE_ADMIN')) {
-                $choices['Aqua (5)'] = 'aqua';
-            }
             $form->add('color', ChoiceType::class, [
-                'choices' => $choices,
+                'choices' => $app['user']->getAvailColors(),
                 'choice_attr' => function($val, $key, $index) {
                     return ['style' => 'background-color: '.$val];
                 },
