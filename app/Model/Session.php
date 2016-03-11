@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
-    public $timestamps = false;
     protected $primaryKey = 'sess_id';
     protected $hidden = ['sess_data'];
 

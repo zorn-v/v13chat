@@ -78,4 +78,22 @@ $app['dispatcher']->addListener(Symfony\Component\HttpKernel\KernelEvents::REQUE
     App\Model\Ban::where('until', '<', new \DateTime())->delete();
     //Удаление просроченных абилок
     App\Model\UserAbility::where('until', '<', new \DateTime())->delete();
+    //Выкидывание неактивных
+    if ($app['chat.config.inactive_timeout'] > 0 && false) {
+        $sessions = App\Model\Session::with('user')->whereNotNull('user_id')->get();
+        foreach ($sessions as $session) {
+            if ((time() - $session->updated_at->getTimestamp() > $app['chat.config.inactive_timeout'])) {
+                $lastMessage = App\Model\Message::where('user_id', $session->user_id)
+                    ->orderBy('updated_at', 'DESC')
+                    ->limit(1)
+                    ->first();
+                if ((time() - $lastMessage->updated_at->getTimestamp() > $app['chat.config.inactive_timeout'])) {
+                    $message = new App\Model\Message();
+                    $message->message = 'Теряет связь и уходит '.$session->user->name.'...';
+                    $message->save();
+                    $app['request']->getSession()->invalidate(1);
+                }
+            }
+        }
+    }
 });

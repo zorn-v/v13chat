@@ -37,7 +37,8 @@ CREATE TABLE `bans` (
   `until` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`reason`),
-  KEY `author_id` (`author_id`)
+  KEY `author_id` (`author_id`),
+  KEY `until` (`until`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `config`;
@@ -52,10 +53,10 @@ INSERT INTO `config` (`name`, `value`, `description`) VALUES
 ('abils', '1', 'Включение/выключение способностей'),
 ('open', '0', 'Статус чата'),
 ('regtype', '2', 'Тип регистрации (2 - авто, 1 - ручная, 0 - отключена)'),
-('timeout', '900', 'Таймаут выкидывания необщительного народа, секунды'),
+('inactive_timeout', '900', 'Таймаут выкидывания необщительного народа, секунды. 0 - отключено'),
 ('title', 'v13 chat', 'Название чата (в title страницы)'),
 ('topic', 'Добро пожаловать в наш чат', 'Топик'),
-('topic_act', '1', 'Топик активен?');
+('topic_active', '1', 'Топик активен?');
 
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
@@ -105,6 +106,8 @@ CREATE TABLE `sessions` (
   `sess_time` int(10) unsigned NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `ip` varchar(16) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`sess_id`),
   UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -197,13 +200,14 @@ CREATE TABLE `user_abilities` (
   `data` text NOT NULL,
   `until` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`,`ability_id`),
-  KEY `ability_id` (`ability_id`)
+  KEY `ability_id` (`ability_id`),
+  KEY `until` (`until`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 ALTER TABLE `bans`
-  ADD CONSTRAINT `bans_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `bans_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
