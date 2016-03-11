@@ -9,7 +9,7 @@
     {% endif %}
     <div class="chat-message {{ messageClass }}">
         {% if is_granted('ROLE_MODERATOR') %}
-            <span data-ajax-send="{{ path('message-delete', {'id': message.id}) }}" class="message-delete">x</span>
+            <span data-ajax-send="{{ path('message-delete', {'messageId': message.id}) }}" class="message-delete">x</span>
         {% endif %}
         <span class="{{ app.user.username in message.message ? 'message-with-you' }}">
         {% if ('now'|date('U') - message.created_at|date('U')) < 60 %}

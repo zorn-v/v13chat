@@ -6,6 +6,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use App\Model\Session;
 use App\Model\Message;
+use App\Model\Ban;
 
 class Ajax
 {
@@ -36,10 +37,18 @@ class Ajax
         ]);
     }
 
-    public function messageDelete(Application $app, Request $request, $id)
+    public function messageDelete(Application $app, Request $request, $messageId)
     {
         if ($app->isGranted('ROLE_MODERATOR')) {
-            Message::destroy($id);
+            Message::destroy($messageId);
+        }
+        return '';
+    }
+
+    public function userVoice(Application $app, Request $request, $userId)
+    {
+        if ($app->isGranted('ROLE_REGISTRATOR')) {
+            Ban::where('user_id', $userId)->where('reason', Ban::REASON_SILENT)->delete();
         }
         return '';
     }

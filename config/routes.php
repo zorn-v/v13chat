@@ -7,4 +7,5 @@ $app->match('/', 'App\\Controller\\Chat::layout')->bind('chat');
 //ajax
 $app->post('/users-list', 'App\\Controller\\Ajax::usersList')->bind('users-list');
 $app->post('/messages', 'App\\Controller\\Ajax::messages')->bind('messages');
-$app->post('/message-delete/{id}', 'App\\Controller\\Ajax::messageDelete')->bind('message-delete');
+$app->post('/message-delete/{messageId}', 'App\\Controller\\Ajax::messageDelete')->bind('message-delete');
+$app->post('/user-voice/{userId}', 'App\\Controller\\Ajax::userVoice')->bind('user-voice');

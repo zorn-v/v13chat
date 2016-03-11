@@ -9,6 +9,7 @@ use App\Model\User;
 class RightsVoter extends Voter
 {
     const CAN_KICK = 'CAN_KICK';
+    const CAN_BAN  = 'CAN_BAN';
 
     protected function supports($attribute, $subject)
     {
@@ -17,6 +18,7 @@ class RightsVoter extends Voter
         }
         $supports = [
             self::CAN_KICK,
+            self::CAN_BAN,
         ];
         if (!in_array($attribute, $supports)) {
             return false;
@@ -35,6 +37,7 @@ class RightsVoter extends Voter
         switch($attribute) {
             //TODO отвязать от role_id
             case self::CAN_KICK:
+            case self::CAN_BAN:
                 return $user->role_id > $victim->role_id;
         }
 
