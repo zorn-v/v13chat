@@ -23,7 +23,7 @@ class Ajax
 
     public function messages(Application $app, Request $request)
     {
-        $userId = $app['user']->getProfile()->id;
+        $userId = $app['user']->id;
         $messages = Message::with('user')
             ->with('recipient')
             ->whereNull('recipient_id')

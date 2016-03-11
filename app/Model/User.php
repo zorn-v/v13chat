@@ -2,9 +2,10 @@
 
 namespace App\Model;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Model implements UserInterface
 {
     private $userAbils = null;
 
@@ -39,5 +40,28 @@ class User extends Model
             ->where('reason', Ban::REASON_SILENT)
             ->where('until', '>',  new \DateTime())
             ->first() !== null;
+    }
+
+    public function getPassword()
+    {
+        return $this->pass;
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function getUsername()
+    {
+        return $this->name;
+    }
+
+    public function getRoles()
+    {
+        return [$this->role->title];
+    }
+
+    public function eraseCredentials()
+    {
     }
 }

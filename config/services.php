@@ -60,11 +60,11 @@ $app['security.authentication.success_handler.default'] = $app->share(function (
 //Сервис генерации и обработки форм
 $app->register(new Silex\Provider\FormServiceProvider());
 
-//Проверяльщик абилок
-$app['chat.ability.voter'] = $app->share(function () {
-    return new App\Security\AbilityVoter();
+//Проверяльщик прав
+$app['chat.rights.voter'] = $app->share(function () {
+    return new App\Security\RightsVoter();
 });
 $app['security.voters'] = $app->extend('security.voters', function($voters) use ($app) {
-    $voters[] = $app['chat.ability.voter'];
+    $voters[] = $app['chat.rights.voter'];
     return $voters;
 });

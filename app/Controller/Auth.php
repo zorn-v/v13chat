@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use App\Model\Session;
 use App\Model\User;
-use App\Security\AuthUser;
 
 class Auth
 {
@@ -73,10 +72,7 @@ class Auth
                 $user->email = $data['email'];
                 $user->icq = $data['icq'];
                 $user->site = $data['site'];
-
-                $authUser = new AuthUser($user);
-                $user->pass = $app->encodePassword($authUser, $data['pass']);
-
+                $user->pass = $app->encodePassword($user, $data['pass']);
                 $user->save();
 
                 $request->getSession()->getFlashBag()->add('message', 'Вы успешно зарегистрированы. Можете войти в чат со своим логином и паролем.');

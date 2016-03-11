@@ -8,7 +8,6 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 use App\Model\User;
-use App\Security\AuthUser;
 
 class UserProvider implements UserProviderInterface
 {
@@ -20,12 +19,12 @@ class UserProvider implements UserProviderInterface
                 sprintf('User with username "%s" not found', $username)
             );
         }
-        return new AuthUser($user);
+        return $user;
     }
 
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof AuthUser) {
+        if (!$user instanceof User) {
             throw new UnsupportedUserException(
                 sprintf('Instances of "%s" are not supported.', get_class($user))
             );
@@ -36,6 +35,6 @@ class UserProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $class === 'App\Security\AuthUser';
+        return $class === 'App\Model\User';
     }
 }

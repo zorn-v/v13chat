@@ -11,22 +11,22 @@ use App\Model\Session;
 
 class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
-    protected $app;
-	
-	public function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
-    
+    private $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        $userId = $this->app['user']->getProfile()->id;
+        $userId = $this->app['user']->id;
         Session::where('user_id', $userId)->delete();
         $request->getSession()->save();
         $session = Session::find($request->getSession()->getId());
         $session->user_id = $userId;
         $session->ip = $request->getClientip();
         $session->save();
-        return new RedirectResponse($this->app['url_generator']->generate('chat'));
+        return $this->app->redirectToRoute('chat');
     }
 }
