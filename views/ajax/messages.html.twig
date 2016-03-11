@@ -12,7 +12,7 @@
             <a href="" style="color:red;">x</a>
         {% endif %}
         {% if ('now'|date('U') - message.created_at|date('U')) < 60 %}
-            <span style="color:red;font-size:14px;">(Новое!)</span>
+            <span class="message-new">(Новое!)</span>
         {% endif %}
 
         {% if message['user_id'] is defined %}

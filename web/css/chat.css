@@ -34,6 +34,10 @@
     text-decoration: underline;
 }
 /* messages */
+.message-new {
+    color: #f00;
+    font-size: 10px;
+}
 .message-service {
     color: #888;
     font-style: italic;

@@ -23,8 +23,12 @@ class Ajax
 
     public function messages(Application $app, Request $request)
     {
+        $userId = $app['user']->getProfile()->id;
         $messages = Message::with('user')
             ->with('recipient')
+            ->whereNull('recipient_id')
+            ->orWhere('recipient_id', $userId)
+            ->orWhere('user_id', $userId)
             ->orderBy('created_at', 'DESC')
             ->get();
         return $app['twig']->render('ajax/messages.html.twig', [
