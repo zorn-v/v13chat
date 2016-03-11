@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model implements UserInterface
 {
     private $userAbils = null;
+    protected $hidden = ['pass'];
 
     public function role()
     {
@@ -59,7 +60,6 @@ class User extends Model implements UserInterface
     {
         return $this->bans()
             ->where('reason', Ban::REASON_SILENT)
-            ->where('until', '>',  new \DateTime())
             ->first() !== null;
     }
 

@@ -72,3 +72,8 @@ $app['security.voters'] = $app->extend('security.voters', function($voters) use 
     $voters[] = $app['chat.rights.voter'];
     return $voters;
 });
+
+$app['dispatcher']->addListener(Symfony\Component\HttpKernel\KernelEvents::REQUEST, function() use ($app) {
+    //Очистка старых банов
+    App\Model\Ban::where('until', '<', new \DateTime())->delete();
+});

@@ -4,6 +4,8 @@ jQuery(function ($) {
     var $to = $('.chat-controls .control-to');
     var $message = $('.chat-controls .control-message');
 
+    $message.focus();
+
     $('body').click(function () {
         $smileBox.hide();
     });
