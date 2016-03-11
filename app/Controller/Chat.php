@@ -76,6 +76,8 @@ class Chat
             }
             $message->message = $msg;
             $message->save();
+            $app['user']->points++;
+            $app['user']->save();
             return '';
         }
 
