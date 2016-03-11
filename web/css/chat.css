@@ -30,6 +30,9 @@
 [data-nick] {
     cursor: pointer;
 }
+[data-nick]:hover {
+    text-decoration: underline;
+}
 /* messages */
 .message-service {
     color: #888;

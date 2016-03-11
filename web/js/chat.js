@@ -1,6 +1,7 @@
 jQuery(function ($) {
     var $smileBox = $('#smilebox');
     var $clearControls = $('.chat-controls .control-to, .chat-controls .control-message');
+    var $to = $('.chat-controls .control-to');
     var $message = $('.chat-controls .control-message');
 
     $('body').click(function () {
@@ -21,8 +22,15 @@ jQuery(function ($) {
         $message.val($message.val() + ' ' + $(this).data('smile-text') + ' ');
     });
 
+    $('[data-nick]').click(function () {
+        $to.val($(this).data('nick'));
+    });
+
     /* ajax */
     var $ajaxBlocks = $('[data-ajax-block]');
+    $ajaxBlocks.delegate('[data-nick]', 'click', function () {
+        $to.val($(this).data('nick'));
+    });
     function updateBlocks() {
         $ajaxBlocks.each(function () {
             var $block = $(this);
