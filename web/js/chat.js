@@ -51,6 +51,14 @@ jQuery(function ($) {
             });
         });
     }
+    $('form[name="form"]').submit(function (e) {
+        e.preventDefault();
+        $.post(this.action, $(this).serialize(), function () {
+            $clearControls.val('');
+            updateBlocks();
+        });
+    });
+
     setInterval(updateBlocks, 5000);
     updateBlocks();
 });
