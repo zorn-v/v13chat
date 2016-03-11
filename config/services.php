@@ -18,8 +18,12 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     ],
 ));
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
-    $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) use ($app) {
+    $assetFunction = function ($asset) use ($app) {
         return $app['request']->getBasePath().'/'.ltrim($asset, '/');
+    };
+    $twig->addFunction(new \Twig_SimpleFunction('asset', $assetFunction));
+    $twig->addFilter(new \Twig_SimpleFilter('smiles', function ($msg) use ($assetFunction) {
+        return preg_replace('#\[smile\](.+?)\[/smile\]#', '<img src="'.$assetFunction('img/smiles').'/\1"/>', $msg);
     }));
     return $twig;
 }));

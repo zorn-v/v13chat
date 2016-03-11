@@ -35,6 +35,6 @@
             =&gt; {{ (message.recipient.ability('ABIL_COLOR_NAME') ?: message.recipient.name)|raw }}
         {% endif %}
         :
-        {{ message.message|raw }}
+        {{ message.message|smiles|raw }}
     </div>
 {% endfor %}
