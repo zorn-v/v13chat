@@ -73,7 +73,7 @@ $app['security.voters'] = $app->extend('security.voters', function($voters) use 
     return $voters;
 });
 
-$app['dispatcher']->addListener(Symfony\Component\HttpKernel\KernelEvents::REQUEST, function() use ($app) {
+$app['dispatcher']->addListener(Symfony\Component\HttpKernel\KernelEvents::REQUEST, function($request) use ($app) {
     //Очистка старых банов
     App\Model\Ban::where('until', '<', new \DateTime())->delete();
     //Удаление просроченных абилок
@@ -88,10 +88,10 @@ $app['dispatcher']->addListener(Symfony\Component\HttpKernel\KernelEvents::REQUE
                     ->limit(1)
                     ->first();
                 if ((time() - $lastMessage->updated_at->getTimestamp() > $app['chat.config.inactive_timeout'])) {
-                    $message = new App\Model\Message();
-                    $message->message = 'Теряет связь и уходит '.$session->user->name.'...';
-                    $message->save();
-                    $app['request']->getSession()->invalidate(1);
+                    (new App\Model\Message([
+                        'message'=>'Теряет связь и уходит '.$session->user->name.'...'
+                    ]))->save();
+                    $request->getSession()->invalidate(1);
                 }
             }
         }

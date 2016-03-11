@@ -62,8 +62,11 @@ class Chat
                 ),
                 $msg
             );
+            if ($app->isGranted('ROLE_MODERATOR') && !empty($data['color'])) {
+                $msg = '<span style="color:'.$data['color'].';">'.$msg.'</span>';
+            }
 
-            $message = new Message();
+            $message = new Message(['message'=>$msg]);
             $message->user_id = $app['user']->id;
             if (!empty($data['to'])) {
                 $recipient = User::where('name', $data['to'])->first();
@@ -71,10 +74,6 @@ class Chat
                     $message->recipient_id = $recipient->id;
                 }
             }
-            if ($app->isGranted('ROLE_MODERATOR') && !empty($data['color'])) {
-                $msg = '<span style="color:'.$data['color'].';">'.$msg.'</span>';
-            }
-            $message->message = $msg;
             $message->save();
             $app['user']->points++;
             $app['user']->save();
