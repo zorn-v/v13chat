@@ -2,8 +2,8 @@
     <div>
     {% if is_granted('ROLE_REGISTRATOR') or user.ability('ABIL_INVIS') is null %}
         {% if is_granted('ROLE_MODERATOR') %}
-            {% if is_granted('CAN_KICK', user) %}<span data-ajax-send="" class="kick-button" title="Kick"></span>{% endif %}
-            {% if is_granted('CAN_BAN', user) %}<span data-ajax-send="" class="ban-button" title="Ban"></span>{% endif %}
+            {% if is_granted('CAN_KICK', user) %}<span data-ajax-send="{{ path('user-kick', {'userId': user.id}) }}" class="kick-button" title="Kick"></span>{% endif %}
+            {% if is_granted('CAN_BAN', user) %}<span data-ajax-send="{{ path('user-ban', {'userId': user.id}) }}" class="ban-button" title="Ban"></span>{% endif %}
         {% endif %}
         {# avatar #}
         <b>{{ (user.ability('ABIL_COLOR_NAME') ?: user.name)|raw }}</b>
