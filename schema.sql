@@ -106,8 +106,8 @@ CREATE TABLE `sessions` (
   `sess_time` int(10) unsigned NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `ip` varchar(16) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`sess_id`),
   UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
